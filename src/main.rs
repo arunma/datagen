@@ -17,21 +17,16 @@ fn run() -> Result<(), Error> {
             output_path,
             schema_path,
             num_records,
-        } => (
-            println!("Output Path {}", output_path)
-        ),
+        } => (println!("Output Path {}", output_path)),
         GenerateAvro {
             output_path,
             schema_path,
             num_records,
-        } => (
-            println!("Output Path {}", output_path)
-        ),
+        } => (println!("Output Path {}", output_path)),
     }
 
     Ok(())
 }
-
 
 fn main() {
     println!("Hello, world!");
