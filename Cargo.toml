@@ -1,0 +1,28 @@
+[package]
+name = "datagen"
+version = "0.1.0"
+authors = ["Arun Manivannan <arun@arunma.com>"]
+edition = "2018"
+include = ["src/**/*", "Cargo.toml"]
+repository = "https://github.com/arunma/datagen"
+readme = "README.md"
+description = "An easy to use tool to generate fake data in bulk and export it as Avro, Parquet or directly into your database as tables"
+license = "MIT"
+
+[dependencies]
+failure = "0.1.1"
+failure-tools = "4.0.2"
+structopt = "0.2"
+serde = { version = "1.0", features = ["derive"]}
+serde_yaml = "0.8"
+unindent = "0.1"
+
+
+[dev-dependencies]
+version-sync = "0.5" #TODO - Check what's this for'
+
+[profile.release]
+panic = 'unwind'
+incremental = false
+overflow-checks = false
+
