@@ -59,6 +59,7 @@ mod tests {
         let schema = Schema::from(&yaml);
         assert_eq!(format!("{:?}", schema), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
         let record = gen_record_for_schema(schema);
+        println! ("Record {:?}", record);
         assert!(bincode::serialize(&record).unwrap().len() > 0);
     }
 }

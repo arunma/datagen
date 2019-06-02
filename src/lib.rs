@@ -5,6 +5,7 @@ extern crate unindent;
 extern crate fake;
 #[macro_use]
 extern crate failure;
+extern crate csv;
 
 pub mod errors;
 pub mod fakegen;
