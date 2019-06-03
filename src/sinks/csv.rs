@@ -30,7 +30,6 @@ impl<W: Write> Sink for CSVSink<W> {
     }
 }
 
-
 fn dvalue_to_csv(value: DValue) -> String {
     use DValue::*;
     match value {
