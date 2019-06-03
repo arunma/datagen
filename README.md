@@ -53,7 +53,11 @@ edit autoexec.bat
 
 ## Usage example
 
-TODO 
+```$bash
+
+cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
+
+```
 
 <!--
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
