@@ -93,8 +93,6 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 ## Contributing
 
-## Contributing
-
 You want to help out? _Awesome_! 
 
 1. Fork it (<https://github.com/arunma/datagen/fork>)
