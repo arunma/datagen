@@ -8,13 +8,21 @@ pub enum DataGenError {
     FileIO(#[cause] io::Error),
     #[fail(display = "CSV error")]
     Csv(#[cause] csv::Error),
+    #[fail(display = "SerDe error")]
+    SerDe(#[cause] serde_yaml::Error),
     #[fail(display = "{}", message)]
     WeirdCase { message: String },
 }
-
 
 impl From<csv::Error> for DataGenError {
     fn from(error: csv::Error) -> Self {
         DataGenError::Csv(error)
     }
 }
+
+impl From<serde_yaml::Error> for DataGenError {
+    fn from(error: serde_yaml::Error) -> Self {
+        DataGenError::SerDe(error)
+    }
+}
+

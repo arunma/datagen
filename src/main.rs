@@ -1,9 +1,12 @@
-#[macro_use]
 extern crate structopt;
 
-use failure_tools::ok_or_exit;
 use std::fmt::Error;
+use std::fs::File;
+
+use failure_tools::ok_or_exit;
 use structopt::StructOpt;
+
+use datagen::{write_fake_records};
 
 mod options;
 
@@ -17,12 +20,19 @@ fn run() -> Result<(), Error> {
             output_path,
             schema_path,
             num_records,
-        } => (println!("Output Path {}", output_path)),
+        } => {
+            println!("Output Path {}, Schema Path {}, Num Records {}", output_path, schema_path, num_records);
+            let writer = File::create(output_path).expect("Output File Path not found");
+            write_fake_records(writer, schema_path, num_records as i64);
+
+        },
         GenerateAvro {
             output_path,
             schema_path,
             num_records,
-        } => (println!("Output Path {}", output_path)),
+        } => {
+            println!("Output Path {}, Schema Path {}, Num Records {}", output_path, schema_path, num_records)
+        },
     }
 
     Ok(())

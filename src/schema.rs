@@ -1,21 +1,25 @@
+use std::fs::File;
+
+#[cfg(test)]
+use pretty_assertions::{assert_eq, assert_ne};
 use serde::{Deserialize, Serialize};
 use serde_yaml::Error;
-use unindent::unindent;
+
 use crate::DType;
 
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub struct Schema {
     pub name: String,
     pub dataset: DataSet,
 }
 
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub struct DataSet {
     pub name: String,
     pub columns: Vec<Column>,
 }
 
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub struct Column {
     pub name: String,
     pub not_null: Option<bool>,
@@ -23,15 +27,19 @@ pub struct Column {
 }
 
 impl Schema {
-    pub fn from(s: &str) -> Schema {
-        return serde_yaml::from_str(s)
-            .expect("Unable to parse the input YAML. Please check the syntax of the file");
+    pub fn from(s: &str) -> Result<Schema, Error> {
+        serde_yaml::from_str(s)
+    }
+
+    pub fn from_path(path: String) -> Result<Schema, Error> {
+        let file = File::open(path).expect("Unable to open the file");
+        serde_yaml::from_reader(file)
     }
 }
 
-#[cfg(test)]
 mod tests {
-    use super::*;
+    use std::path::Path;
+    use crate::schema::Schema;
 
     #[test]
     fn derive_struct_from_yaml() {
@@ -50,6 +58,14 @@ mod tests {
         );
 
         let schema = Schema::from(&yaml);
-        assert_eq!(format!("{:?}", schema), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
+        pretty_assertions::assert_eq!(format ! ("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
+
+    }
+
+    #[test]
+    fn derive_struct_from_file() {
+        let file_path = "./test_data/schema_simple.yaml".to_string();
+        let schema = Schema::from_path(file_path);
+        pretty_assertions::assert_eq!(format!("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
     }
 }

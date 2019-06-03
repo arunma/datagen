@@ -1,9 +1,8 @@
-use std::io::Error;
-use crate::DValue;
 use crate::errors::DataGenResult;
+use crate::DValue;
 
-pub mod avro;
-pub mod csv;
+pub mod avro_sink;
+pub mod csv_sink;
 
 pub trait Sink {
     fn write(&mut self, value: DValue) -> DataGenResult<()>;

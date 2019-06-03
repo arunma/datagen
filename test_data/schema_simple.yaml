@@ -1,14 +1,10 @@
-schema:
-  name: person_schema
-  dataset:
-    name: person_table
-    columns:
-      - {name: id, not_null: false, dtype: integer}
-      - {name: name, dtype: string}
-      - {name: age, dtype: smallint}
-      - {name: adult, default: 'false', dtype: boolean}
-      - {name: gender, dtype: string}
-
-#    primary_key:
-#        columns:
-#          - id
+---
+name: person_schema
+dataset:
+  name: person_table
+  columns:
+    - {name: id, not_null: false, dtype: int}
+    - {name: name, dtype: string}
+    - {name: age, dtype: int}
+    - {name: adult, default: 'false', dtype: boolean}
+    - {name: gender, dtype: string}

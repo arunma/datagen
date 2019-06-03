@@ -23,6 +23,7 @@ csv = "1.0.7"
 [dev-dependencies]
 version-sync = "0.5" #TODO - Check what's this for'
 bincode = "1.1.4"
+pretty_assertions = "0.6.1"
 
 [profile.release]
 panic = 'unwind'

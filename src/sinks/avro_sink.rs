@@ -1,8 +1,6 @@
 use crate::errors::DataGenResult;
 use crate::schema::Schema;
-use crate::sinks::Sink;
 use std::io;
-use std::io::Error;
 
 pub struct AvroSink<W: io::Write>(Schema, W);
 

@@ -1,13 +1,9 @@
-use std::collections::HashMap;
+#[cfg(test)]
+use pretty_assertions::{assert_eq, assert_ne};
 
-use fake::faker::*;
-use fake::faker::Lorem;
-use serde::Serialize;
-use unindent::unindent;
-
-use crate::{DValue, DType};
-use crate::fakegen::DValue::{Bytes, Double, Float, Int, Long, Record};
-use crate::schema::{Column, Schema};
+use crate::{DType, DValue};
+use crate::fakegen::DValue::Record;
+use crate::schema::Schema;
 
 pub fn gen_record_for_schema(schema: Schema) -> DValue {
     Record(
@@ -36,30 +32,15 @@ pub fn generate_fake_data(dtype: DType) -> DValue {
     }
 }
 
-#[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::schema::Schema;
+    use crate::fakegen::gen_record_for_schema;
 
     #[test]
     fn generate_record_from_schema() {
-        let yaml = unindent(
-            "schema:
-    name: person_schema
-    dataset:
-        name: person_table
-        columns:
-            - {name: id, not_null: false, dtype: int}
-            - {name: name, dtype: string}
-            - {name: age, dtype: int}
-            - {name: adult, default: 'false', dtype: boolean}
-            - {name: gender, dtype: string}
-",
-        );
-
-        let schema = Schema::from(&yaml);
-        assert_eq!(format!("{:?}", schema), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
+        let schema = Schema::from_path("./test_data/schema_simple.yaml".to_string()).unwrap();
+        pretty_assertions::assert_eq!(format!("{:?}", schema), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
         let record = gen_record_for_schema(schema);
-        println! ("Record {:?}", record);
         assert!(bincode::serialize(&record).unwrap().len() > 0);
     }
 }

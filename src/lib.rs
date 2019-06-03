@@ -14,7 +14,10 @@ pub mod schema;
 pub mod sinks;
 
 use serde::{Deserialize, Serialize};
-
+use crate::sinks::{Sink, csv_sink};
+use crate::schema::Schema;
+use crate::errors::DataGenResult;
+use std::io;
 
 ///
 /// This program just delegates all the fake data generation work to the wonderful fake-rs library
@@ -33,8 +36,7 @@ pub enum DValue {
     Record(Vec<(String, DValue)>),
 }
 
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum DType {
     Boolean,
@@ -46,5 +48,12 @@ pub enum DType {
     String,
     Age,
     //TODO - For now, let's stick to basic types
-//    Date, Array, Map, Nullable (union/null), Record,
+    //    Date, Array, Map, Nullable (union/null), Record,
+}
+
+pub fn write_fake_records <W:io::Write> (writer: W, schema_path: String, num_records: i64) -> DataGenResult<()> {
+    let schema = Schema::from_path(schema_path)?;
+    let mut sink = csv_sink::sink(schema.clone(), writer)?;
+    let record = fakegen::gen_record_for_schema(schema.clone());
+    sink.write(record)
 }
