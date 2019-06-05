@@ -1,4 +1,4 @@
-use std::{io, result, fmt};
+use std::{io, result};
 
 pub type DataGenResult<T> = result::Result<T, DataGenError>;
 

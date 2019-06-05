@@ -7,4 +7,4 @@ dataset:
     - {name: name, dtype: string}
     - {name: age, dtype: age}
     - {name: adult, default: 'false', dtype: boolean}
-    - {name: gender, dtype: string}
+    - {name: gender, dtype: gender}

@@ -59,17 +59,17 @@ dataset:
             dtype: boolean
         -
             name: gender
-            dtype: string
+            dtype: gender
 "#;
 
         let schema = Schema::from(&yaml);
-        pretty_assertions::assert_eq!(format ! ("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
+        pretty_assertions::assert_eq!(format ! ("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: Gender }] } }"#);
     }
 
     #[test]
     fn derive_struct_from_file() {
         let file_path = "./test_data/schema_simple.yaml".to_string();
         let schema = Schema::from_path(file_path);
-        pretty_assertions::assert_eq!(format!("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Age }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: String }] } }"#);
+        pretty_assertions::assert_eq!(format!("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Age }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: Gender }] } }"#);
     }
 }

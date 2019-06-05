@@ -44,11 +44,13 @@ pub fn to_avro_schema(schema: Schema) -> Result<avro_rs::Schema, failure::Error>
     avro_rs::Schema::parse_str(&schema_string)
 }
 
+#[rustfmt::skip]
 fn dtype_to_avro_type(dtype: DType) -> String {
     use DType::*;
     match dtype {
-        Age => "int".to_string(),
-        _ => format!("{:?}", dtype).to_lowercase(),
+        Age         =>      "int".to_string(),
+        Gender      =>      "string".to_string(),
+        _           =>      format!("{:?}", dtype).to_lowercase(),
     }
 }
 

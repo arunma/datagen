@@ -13,7 +13,7 @@ matrix:
     - rust: nightly
 
 script:
-  - cargo build && cargo clippy
+  - cargo build
   - cargo test -- --color always --nocapture
 
 before_cache:
