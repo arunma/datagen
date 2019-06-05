@@ -2,7 +2,7 @@
 > An easy to use tool to generate fake/dummy data in bulk and export it as Avro, Parquet or directly into your database as tables.
 
 
-[![Build Status](travis-image)](travis-url)
+[![Build Status](https://travis-ci.com/arunma/datagen.svg?branch=master)](https://travis-ci.com/arunma/datagen)
 
 
 
@@ -118,6 +118,4 @@ You want to help out? _Awesome_!
 
 <!-- Markdown link & img dfn's 
 
-[travis-image]: https://travis-ci.com/arunma/datagen.svg?branch=master
-[travis-url]: https://travis-ci.com/arunma/datagen
 [wiki]: https://github.com/yourname/yourproject/wiki-->
