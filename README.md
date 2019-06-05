@@ -1,10 +1,8 @@
 # DataGen
 > An easy to use tool to generate fake/dummy data in bulk and export it as Avro, Parquet or directly into your database as tables.
 
-<!--
 [![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
--->
+
 
 DataGen is a command line application written in [Rust][] that generates dummy data for provides a means of interacting with the social Web from your personal
 desktop.
@@ -22,20 +20,20 @@ desktop.
  * [ ] Generate multiple datasets with PrimaryKey/ForeignKey
  * [ ] Support Richer types - Date, Map, Arrays, Nested Records
  
-## Dependencies
-
- * Rust (1.34.0)
- * Fake (1.3)
- * Serde (1.0)
- * Many others
-
-<!--
-![](header.png)
--->
-
 ## Installation
 
-TODO 
+At the moment, the installation is done only through [Cargo](https://www.rust-lang.org/tools/install).  Please install Cargo by following the instructions from https://www.rust-lang.org/tools/install.
+
+Once cargo is installed, you could pull the binary from [crates.io](https://crates.io/crates/datagen) using : 
+
+```bash
+
+cargo install datagen
+
+```
+
+
+> Note: The binary would have been placed in your `<HOME_DIR>/.cargo/bin/` which the Cargo installation would have placed in your PATH.  If not, please add it to your PATH.
 
 <!--
 OS X & Linux:
@@ -53,11 +51,22 @@ edit autoexec.bat
 
 ## Usage example
 
+##### CSV 
+
 ```$bash
 
-cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
+datagen csv "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
 
+cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
 ```
+
+##### Avro
+
+```$bash
+cargo run -- "avro" "<output_dir>/output.avro" "<schema_yaml_dir>/schema_simple.yaml" 100
+```
+
+[![asciicast](https://asciinema.org/a/249989.png)](https://asciinema.org/a/249989)
 
 <!--
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
@@ -80,8 +89,9 @@ npm test
 
 ## Release History
 
-* 0.0.1
-    * Work in progress
+* 0.1.0
+    * Support for CSV (no headers)
+    * Support for Avro (primitive types)
 
 ## Meta
 
@@ -95,16 +105,10 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 You want to help out? _Awesome_! 
 
-1. Fork it (<https://github.com/arunma/datagen/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+1. This is my first Rust project.  If you are an experienced Rust programmer, I can't thank enough for doing a code review. 
+2. If you are interested in adding new **sinks** to the project/report bugs/add features/add docs, thank you in advance.  Your efforts are very much appreciated.   
 
 <!-- Markdown link & img dfn's 
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+[travis-image]: https://img.shields.io/travis/arunma/datagen/master.svg?style=flat-square
+[travis-url]: https://travis-ci.com/arunma/datagen
 [wiki]: https://github.com/yourname/yourproject/wiki-->

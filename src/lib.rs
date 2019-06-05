@@ -1,13 +1,11 @@
 extern crate serde;
 extern crate serde_yaml;
-extern crate unindent;
 #[macro_use]
 extern crate fake;
 #[macro_use]
 extern crate failure;
 extern crate avro_rs;
 extern crate csv;
-extern crate rand;
 extern crate serde_json;
 
 #[macro_use]
@@ -24,7 +22,6 @@ use crate::schema::Schema;
 use crate::sinks::avro_schema_utils::to_avro_schema;
 use crate::sinks::{avro_sink, csv_sink, Sink};
 use avro_rs::Codec;
-use serde::{Deserialize, Serialize};
 use std::io;
 
 ///
