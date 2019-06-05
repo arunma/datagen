@@ -1,7 +1,9 @@
 # DataGen
 > An easy to use tool to generate fake/dummy data in bulk and export it as Avro, Parquet or directly into your database as tables.
 
-[![Build Status][travis-image]][travis-url]
+
+[![Build Status](travis-image)](travis-url)
+
 
 
 DataGen is a command line application written in [Rust][] that generates dummy data for provides a means of interacting with the social Web from your personal
@@ -115,6 +117,7 @@ You want to help out? _Awesome_!
 2. If you are interested in adding new **sinks** to the project/report bugs/add features/add docs, thank you in advance.  Your efforts are very much appreciated.   
 
 <!-- Markdown link & img dfn's 
-[travis-image]: https://img.shields.io/travis/arunma/datagen/master.svg?style=flat-square
+
+[travis-image]: https://travis-ci.com/arunma/datagen.svg?branch=master
 [travis-url]: https://travis-ci.com/arunma/datagen
 [wiki]: https://github.com/yourname/yourproject/wiki-->
