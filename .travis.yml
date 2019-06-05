@@ -1,0 +1,30 @@
+sudo: false
+
+language: rust
+
+rust:
+  - stable
+  - beta
+  - nightly
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - rust: nightly
+
+script:
+  - cargo build && cargo clippy
+  - cargo test -- --color always --nocapture
+
+before_cache:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r $HOME/.cargo
+
+before_install: ignore
+
+cache:
+  cargo: true
+
+after_success: ignore
+#  - cargo coveralls
+#TODO - Install kcov
