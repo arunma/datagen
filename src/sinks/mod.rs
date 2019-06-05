@@ -1,6 +1,7 @@
 use crate::errors::DataGenResult;
 use crate::DValue;
 
+pub mod avro_schema_utils;
 pub mod avro_sink;
 pub mod csv_sink;
 

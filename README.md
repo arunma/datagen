@@ -12,8 +12,8 @@ desktop.
 ## Features
 
  * Export Data as Files
-   * [ ] CSV (In progress)
-   * [ ] Avro (In progress)
+   * [x] CSV
+   * [x] Avro
    * [ ] Parquet
  * Export Data into Database
    * [ ] Postgres
@@ -24,7 +24,7 @@ desktop.
  
 ## Dependencies
 
- * Rust (1.35.0)
+ * Rust (1.34.0)
  * Fake (1.3)
  * Serde (1.0)
  * Many others

@@ -5,6 +5,6 @@ dataset:
   columns:
     - {name: id, not_null: false, dtype: int}
     - {name: name, dtype: string}
-    - {name: age, dtype: int}
+    - {name: age, dtype: age}
     - {name: adult, default: 'false', dtype: boolean}
     - {name: gender, dtype: string}

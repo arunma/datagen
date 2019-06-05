@@ -1,4 +1,4 @@
-use std::{io, result};
+use std::{io, result, fmt};
 
 pub type DataGenResult<T> = result::Result<T, DataGenError>;
 
@@ -8,6 +8,8 @@ pub enum DataGenError {
     FileIO(#[cause] io::Error),
     #[fail(display = "CSV error")]
     Csv(#[cause] csv::Error),
+    #[fail(display = "Avro error")]
+    Avro(#[cause] failure::Error),
     #[fail(display = "SerDe error")]
     SerDe(#[cause] serde_yaml::Error),
     #[fail(display = "{}", message)]
@@ -26,3 +28,8 @@ impl From<serde_yaml::Error> for DataGenError {
     }
 }
 
+impl From<failure::Error> for DataGenError {
+    fn from(error: failure::Error) -> Self {
+        DataGenError::Avro(error)
+    }
+}

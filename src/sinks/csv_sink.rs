@@ -3,13 +3,18 @@ use crate::errors::*;
 use crate::schema::Schema;
 use crate::sinks::Sink;
 use crate::DValue;
-use csv::Writer;
 use std::io::Write;
 
 pub struct CSVSink<W: Write>(Schema, csv::Writer<W>);
 
-pub fn sink<W: Write>(schema: Schema, w: W) -> DataGenResult<CSVSink<W>> {
-    Ok(CSVSink(schema, Writer::from_writer(w)))
+pub fn sink<W: Write>(schema: Schema, w: W, delimiter: u8) -> DataGenResult<CSVSink<W>> {
+    Ok(CSVSink(
+        schema,
+        csv::WriterBuilder::new()
+            .delimiter(delimiter)
+            .quote_style(csv::QuoteStyle::NonNumeric)
+            .from_writer(w),
+    ))
 }
 
 impl<W: Write> Sink for CSVSink<W> {
@@ -21,7 +26,7 @@ impl<W: Write> Sink for CSVSink<W> {
 
                 Ok(())
             }
-            value => Err(WeirdCase { message: format!("The 'value' parameters received at the CSVSink is not a Record. Value found was : {:?}", value) })
+            _ => Err(WeirdCase { message: format!("The 'value' parameters received at the CSVSink is not a Record. Value found was : {:?}", value) })
         }
     }
 }
@@ -42,11 +47,8 @@ fn dvalue_to_csv(value: DValue) -> String {
 }
 
 #[cfg(test)]
-use pretty_assertions::{assert_eq, assert_ne};
 mod tests {
     use super::*;
-    use crate::schema::{Column, DataSet};
-    use std::io::BufWriter;
 
     #[test]
     fn generate_record_from_schema() {
@@ -62,11 +64,12 @@ mod tests {
 
         let mut vec: Vec<u8> = Vec::new();
         {
-            let buffer = BufWriter::new(&mut vec);
-            let mut sink = sink(schema, buffer).unwrap();
+            let mut sink = sink(schema, &mut vec, ',' as u8).unwrap();
             sink.write(record).unwrap();
         }
-
-        pretty_assertions::assert_eq!("1,Jason,90,true,Male\n".as_bytes(), vec.as_slice());
+        pretty_assertions::assert_eq!(
+            "1,\"Jason\",90,\"true\",\"Male\"\n".as_bytes(),
+            vec.as_slice()
+        );
     }
 }

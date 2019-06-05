@@ -22,6 +22,9 @@ pub enum Command {
 
         #[structopt(name = "numrecs", alias = "n")]
         num_records: usize,
+
+        #[structopt(name = "delim", alias = "d", default_value = ",")]
+        delimiter: u8,
     },
 
     #[structopt(name = "avro", alias = "a")]
