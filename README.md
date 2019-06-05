@@ -55,10 +55,13 @@ edit autoexec.bat
 
 ```$bash
 
-datagen csv "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
+datagen csv "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100 "^"
 
-cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
+cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100 ";"
 ```
+
+[![asciicast](https://asciinema.org/a/249996.png)](https://asciinema.org/a/249996)
+
 
 ##### Avro
 
@@ -92,6 +95,9 @@ npm test
 * 0.1.0
     * Support for CSV (no headers)
     * Support for Avro (primitive types)
+    
+* 0.1.1
+    * Support for custom delimiters for CSV
 
 ## Meta
 
