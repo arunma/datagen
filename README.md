@@ -59,7 +59,6 @@ edit autoexec.bat
 
 datagen csv "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100 "^"
 
-cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100 ";"
 ```
 
 [![asciicast](https://asciinema.org/a/249996.png)](https://asciinema.org/a/249996)
@@ -68,7 +67,9 @@ cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
 ##### Avro
 
 ```$bash
-cargo run -- "avro" "<output_dir>/output.avro" "<schema_yaml_dir>/schema_simple.yaml" 100
+
+datagen avro "<output_dir>/output.avro" "<schema_yaml_dir>/schema_simple.yaml" 100
+
 ```
 
 [![asciicast](https://asciinema.org/a/249989.png)](https://asciinema.org/a/249989)
@@ -79,9 +80,28 @@ A few motivating and useful examples of how your product can be used. Spice this
 _For more examples and usage, please refer to the [Wiki][wiki]._
 -->
 
+## Schema YAML
+
+An example for the schema YAML is located at `<PROJECT_ROOT>/test_data/schema_simple.yaml`
+
 ## Development setup
 
-TODO
+1. Clone the [repo](https://github.com/arunma/datagen.git)
+2. Run `cargo build`
+3. Run `cargo test -- --color always --nocapture`
+4. Run program (& Profit!)
+
+##### CSV
+```bash
+cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100 ";"
+```
+
+##### Avro
+```bash
+cargo run -- "avro" "<output_dir>/output.avro" "<schema_yaml_dir>/schema_simple.yaml" 100
+``` 
+
+
 
 <!--
 Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
