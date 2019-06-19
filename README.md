@@ -74,6 +74,15 @@ datagen avro "<output_dir>/output.avro" "<schema_yaml_dir>/schema_simple.yaml" 1
 
 [![asciicast](https://asciinema.org/a/249989.png)](https://asciinema.org/a/249989)
 
+
+##### Json
+
+```$bash
+
+datagen json "<output_dir>/output.json" "<schema_yaml_dir>/all_examples.yaml" 100
+
+```
+
 <!--
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
@@ -101,6 +110,10 @@ cargo run -- "csv" "<output_dir>/output.csv" "<schema_yaml_dir>/schema.yaml" 100
 cargo run -- "avro" "<output_dir>/output.avro" "<schema_yaml_dir>/schema_simple.yaml" 100
 ``` 
 
+##### Json
+```bash
+cargo run -- "json" "<output_dir>/output.json" "<schema_yaml_dir>/schema.yaml" 100
+```
 
 
 <!--
@@ -120,6 +133,10 @@ npm test
     
 * 0.1.1
     * Support for custom delimiters for CSV
+    
+* 0.1.2
+    * Json support added
+    * Support for semantic types (name, gender, date, latitude, phone etc) 
 
 ## Meta
 
