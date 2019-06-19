@@ -1,5 +1,5 @@
 # DataGen
-> An easy to use tool to generate fake/dummy data in bulk and export it as Avro, Parquet or directly into your database as tables.
+> An easy to use tool to generate fake/dummy data in bulk and export it as Avro, CSV, Json or directly into your database as tables (coming soon!).
 
 
 [![Build Status](https://travis-ci.com/arunma/datagen.svg?branch=master)](https://travis-ci.com/arunma/datagen)
@@ -14,6 +14,7 @@ desktop.
  * Export Data as Files
    * [x] CSV
    * [x] Avro
+   * [x] Json
    * [ ] Parquet
  * Export Data into Database
    * [ ] Postgres
