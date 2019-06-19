@@ -6,7 +6,7 @@
 
 
 
-DataGen is a command line application written in [Rust][] that generates dummy data for provides a means of interacting with the social Web from your personal
+DataGen is a command line application written in [Rust](https://www.rust-lang.org/) that generates dummy data for provides a means of interacting with the social Web from your personal
 desktop.
 
 ## Features
@@ -135,7 +135,7 @@ npm test
 * 0.1.1
     * Support for custom delimiters for CSV
     
-* 0.1.2
+* 0.1.3
     * Json support added
     * Support for semantic types (name, gender, date, latitude, phone etc) 
 
