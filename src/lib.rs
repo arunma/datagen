@@ -54,6 +54,13 @@ pub enum DType {
     String,
     Age,
     Gender,
+    Id,
+    Name,
+    City,
+    Phone,
+    Date,
+    Latitude,
+    Longitude,
     //TODO - For now, let's stick to basic types
     //    Date, Array, Map, Nullable (union/null), Record,
 }

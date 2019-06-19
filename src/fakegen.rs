@@ -35,6 +35,13 @@ pub fn generate_fake_data(dtype: DType) -> DValue {
         //Special types
         DType::Age => DValue::Int(fake!(Number.between(1, 100))),
         DType::Gender => DValue::Str(random_gender(fake!(Number.between(0, 2)))),
+        DType::Id => DValue::Int(fake!(Number.between(1, 2147483647))),
+        DType::Name => DValue::Str(fake!(Name.name)),
+        DType::City => DValue::Str(fake!(Address.city)),
+        DType::Phone => DValue::Str(fake!(PhoneNumber.phone_number)),
+        DType::Date => DValue::Str(fake!(Chrono.datetime(None))),
+        DType::Latitude => DValue::Str(fake!(Address.latitude)),
+        DType::Longitude => DValue::Str(fake!(Address.longitude)),
     }
 }
 

@@ -1,4 +1,3 @@
-use std::io;
 use std::io::Result;
 use std::io::Write;
 
@@ -33,7 +32,7 @@ impl<W: Write> JsonSink<W> {
         wrap_as_datagen_error(self.1.write(",".as_bytes()))
     }
     pub fn start_array(&mut self) -> DataGenResult<()> {
-        wrap_as_datagen_error(self.1.write((format!("{}{}", "[", NEW_LINE) .as_bytes())))
+        wrap_as_datagen_error(self.1.write(format!("{}{}", "[", NEW_LINE) .as_bytes()))
     }
     pub fn end_array(&mut self) -> DataGenResult<()> {
         wrap_as_datagen_error(self.1.write("]".as_bytes()))
