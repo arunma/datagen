@@ -4,7 +4,7 @@ dataset:
   name: person_table
   columns:
     - {name: id, not_null: false, dtype: int}
-    - {name: name, dtype: string}
+    - {name: name, dtype: name}
     - {name: age, dtype: age}
     - {name: adult, default: 'false', dtype: boolean}
     - {name: gender, dtype: gender}

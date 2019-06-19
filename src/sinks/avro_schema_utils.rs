@@ -50,6 +50,13 @@ fn dtype_to_avro_type(dtype: DType) -> String {
     match dtype {
         Age         =>      "int".to_string(),
         Gender      =>      "string".to_string(),
+        Id          =>      "string".to_string(),
+        Name        =>      "string".to_string(),
+        City        =>      "string".to_string(),
+        Phone       =>      "string".to_string(),
+        Date        =>      "string".to_string(),
+        Latitude    =>      "string".to_string(),
+        Longitude   =>      "string".to_string(),
         _           =>      format!("{:?}", dtype).to_lowercase(),
     }
 }
