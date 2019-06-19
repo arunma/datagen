@@ -47,18 +47,18 @@ fn dvalue_to_avro(value: DValue) -> avro_rs::types::Value {
         DValue::Bytes(val) => Value::Bytes(val),
         DValue::Str(val) => Value::String(val),
         DValue::Null => Value::Null,
-        _ => unimplemented!()//Value(format!("{:?}", x))
+        _ => unreachable!(),
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::schema::{Schema};
+    use crate::schema::Schema;
     use crate::sinks::avro_schema_utils::to_avro_schema;
     use crate::sinks::avro_sink::sink;
     use crate::DValue;
-    use avro_rs::{Codec};
+    use avro_rs::Codec;
 
     #[test]
     fn generate_avro_record_from_schema() {

@@ -7,7 +7,7 @@ use std::fs::File;
 use failure_tools::ok_or_exit;
 use structopt::StructOpt;
 
-use datagen::{write_csv, write_avro};
+use datagen::{write_csv, write_avro, write_json};
 use std::path::Path;
 
 mod options;
@@ -30,7 +30,7 @@ fn run() -> Result<(), Error> {
             );
             fs::create_dir_all(Path::new(&output_path).parent().unwrap());
             let writer = File::create(&output_path).expect("Output File Path not found");
-            write_csv(writer, schema_path, num_records as i64, delimiter); //TODO - Throws warning
+            write_csv(writer, schema_path, num_records as i64, delimiter);
         }
         GenerateAvro {
             output_path,
@@ -43,8 +43,21 @@ fn run() -> Result<(), Error> {
             );
             fs::create_dir_all(Path::new(&output_path).parent().unwrap());
             let writer = File::create(&output_path).expect("Output File Path not found");
-            write_avro(writer, schema_path, num_records as i64); //TODO - Throws warning
+            write_avro(writer, schema_path, num_records as i64);
         },
+        GenerateJson {
+            output_path,
+            schema_path,
+            num_records
+        } => {
+            println!(
+                "Output Path {}, Schema Path {}, Num Records {}",
+                &output_path, schema_path, num_records
+            );
+            fs::create_dir_all(Path::new(&output_path).parent().unwrap());
+            let writer = File::create(&output_path).expect("Output File Path not found");
+            write_json(writer, schema_path, num_records as i64);
+        }
     }
 
     Ok(())
@@ -52,7 +65,4 @@ fn run() -> Result<(), Error> {
 
 fn main() {
     ok_or_exit(run())
-    /*let string = String::from_str("hello");
-    let fmt_string = format!("{:?}", string.to_string);
-    println!(fmt_string);*/
 }

@@ -43,4 +43,16 @@ pub enum Command {
         #[structopt(name = "numrecs", alias = "n")]
         num_records: usize,
     },
+
+    #[structopt(name = "json", alias = "j")]
+    GenerateJson {
+        #[structopt(name = "output", alias = "o")]
+        output_path: String,
+
+        #[structopt(name = "schema", alias = "s")]
+        schema_path: String,
+
+        #[structopt(name = "numrecs", alias = "n")]
+        num_records: usize,
+    },
 }

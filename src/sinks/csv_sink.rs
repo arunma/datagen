@@ -51,7 +51,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn generate_record_from_schema() {
+    fn generate_csv_record_from_schema() {
         let record = DValue::Record(vec![
             ("id".to_string(), DValue::Int(1)),
             ("name".to_string(), DValue::Str("Jason".to_string())),
