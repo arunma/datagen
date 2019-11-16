@@ -19,6 +19,11 @@ desktop.
  * Export Data into Database
    * [ ] Postgres
    * [ ] MySQL
+ * [x] Supports Int, Long, Double, Float, String, Date, DateTime
+ * [x] Supports `one_of` to generate random values from a list
+ * [x] Supports `min` and `max` for numeric and date fields
+ * [x] Supports `mean` and `std` for numeric fields
+ * [x] Supports custom date formatting for Date and DateTime datatypes
  * [ ] Generate unique records by respecting the primary key attribute
  * [ ] Generate multiple datasets with PrimaryKey/ForeignKey
  * [ ] Support Richer types - Date, Map, Arrays, Nested Records
@@ -92,7 +97,26 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 ## Schema YAML
 
-An example for the schema YAML is located at `<PROJECT_ROOT>/test_data/schema_simple.yaml`
+    ---
+    name: person_schema
+    dataset:
+      name: person_table
+      columns:
+        - {name: id, not_null: false, dtype: int}
+        - {name: name, dtype: name}
+        - {name: age, dtype: age}
+        - {name: adult, default: 'false', dtype: boolean}
+        - {name: gender, dtype: string, one_of: ["M", "F"]}
+        - {name: dob, dtype: "date", min: "01/01/1950" , max: "03/01/2014", format: "%d/%m/%Y"}
+        - {name: event_date, dtype: "datetime", min: "2014-11-28 12:00:09" , max: "2014-11-30 12:00:09", format: "%Y-%m-%d %H:%M:%S"}
+        - {name: score, dtype: "int", mean: 1.00, std: 0.36}
+        - {name: distance, dtype: "int", min: 19000, max: 221377}
+        - {name: weight, dtype: "float", min: 1.00, max: 500.00}
+    
+Date format specifiers could be sourced from : https://docs.rs/chrono/0.4.9/chrono/format/strftime/index.html#specifiers
+    
+An example for the schema YAML is located at `<PROJECT_ROOT>/test_data/schema_options.yaml`
+
 
 ## Development setup
 

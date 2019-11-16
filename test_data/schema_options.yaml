@@ -1,0 +1,17 @@
+---
+name: person_schema
+dataset:
+  name: person_table
+  columns:
+    - {name: id, not_null: false, dtype: int}
+    - {name: name, dtype: name}
+    - {name: age, dtype: age}
+    - {name: adult, default: 'false', dtype: boolean}
+    - {name: gender, dtype: string, one_of: ["M", "F"]}
+    - {name: dob, dtype: "date", min: "01/01/1950" , max: "03/01/2014", format: "%d/%m/%Y"}
+    - {name: event_date, dtype: "datetime", min: "2014-11-28 12:00:09" , max: "2014-11-30 12:00:09", format: "%Y-%m-%d %H:%M:%S"}
+    - {name: score, dtype: "int", mean: 1.00, std: 0.36}
+    - {name: distance, dtype: "int", min: 19000, max: 221377}
+    - {name: weight, dtype: "float", min: 1.00, max: 500.00}
+
+# Date format specifiers https://docs.rs/chrono/0.4.9/chrono/format/strftime/index.html#specifiers
