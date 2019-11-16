@@ -153,13 +153,4 @@ mod tests {
         println!("Record {:?}", record.clone());
         assert!(bincode::serialize(&record).unwrap().len() > 0);
     }
-
-    #[test]
-    fn generate_record_for_ds1() {
-        let schema = Schema::from_path("/Users/arunma/IdeaProjects/Rust/datagen/test_data/ds4_mvpa.yaml".to_string()).unwrap();
-        //pretty_assertions::assert_eq!(format!("{:?}", schema), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: Name }, Column { name: "age", not_null: None, dtype: Age }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: Gender }] } }"#);
-        let record = gen_record_for_schema(schema);
-        println!("Record {:?}", record.clone());
-        assert!(bincode::serialize(&record).unwrap().len() > 0);
-    }
 }
