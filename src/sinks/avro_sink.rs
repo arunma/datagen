@@ -45,6 +45,8 @@ fn dvalue_to_avro(value: DValue) -> avro_rs::types::Value {
         DValue::Float(val) => Value::Float(val),
         DValue::Double(val) => Value::Double(val),
         DValue::Bytes(val) => Value::Bytes(val),
+        DValue::Date(val) => Value::String(val),
+        DValue::DateTime(val) => Value::String(val),
         DValue::Str(val) => Value::String(val),
         DValue::Null => Value::Null,
         _ => unreachable!(),
@@ -68,6 +70,7 @@ mod tests {
             ("age".to_string(), DValue::Int(90)),
             ("adult".to_string(), DValue::Boolean(true)),
             ("gender".to_string(), DValue::Str("Male".to_string())),
+            ("date".to_string(), DValue::Str("01/01/2014".to_string()))
         ]);
 
         let schema = Schema::from_path("./test_data/schema_simple.yaml".to_string()).unwrap();

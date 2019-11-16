@@ -1,29 +1,30 @@
-extern crate serde;
-extern crate serde_yaml;
-#[macro_use]
-extern crate fake;
-#[macro_use]
-extern crate failure;
 extern crate avro_rs;
 extern crate csv;
-extern crate serde_json;
-
+#[macro_use]
+extern crate failure;
+extern crate fake;
+extern crate rand;
+extern crate serde;
 #[macro_use]
 extern crate serde_derive;
+extern crate serde_json;
+extern crate serde_yaml;
+extern crate chrono;
+
+use std::io;
+
+use avro_rs::Codec;
+
+use crate::errors::DataGenResult;
+use crate::schema::Schema;
+use crate::sinks::{avro_sink, csv_sink, json_sink, Sink};
+use crate::sinks::avro_schema_utils::to_avro_schema;
 
 pub mod errors;
 pub mod fakegen;
 pub mod options;
 pub mod schema;
 pub mod sinks;
-
-use crate::errors::DataGenResult;
-use crate::schema::Schema;
-use crate::sinks::avro_schema_utils::to_avro_schema;
-use crate::sinks::{avro_sink, csv_sink, json_sink, Sink};
-use avro_rs::Codec;
-use std::io;
-use std::fs;
 
 ///
 /// This program just delegates all the fake data generation work to the wonderful fake-rs library
@@ -39,6 +40,8 @@ pub enum DValue {
     Double(f64),
     Bytes(Vec<u8>),
     Str(String),
+    Date(String),
+    DateTime(String),
     Record(Vec<(String, DValue)>),
 }
 
@@ -50,17 +53,16 @@ pub enum DType {
     Float,
     Long,
     Double,
-    Bytes,
     String,
     Age,
-    Gender,
-    Id,
     Name,
     City,
     Phone,
     Date,
+    DateTime,
     Latitude,
     Longitude,
+
     //TODO - For now, let's stick to basic types
     //    Date, Array, Map, Nullable (union/null), Record,
 }
@@ -118,10 +120,8 @@ mod tests {
     use std::fs::File;
     use std::io::{BufRead, BufReader};
     use std::path::Path;
-    use crate::DValue;
-    use crate::schema::Schema;
-    use serde_json::Value;
 
+    use serde_json::Value;
 
     fn get_file_writer(path: &str) -> File {
         fs::create_dir_all(Path::new(path).parent().unwrap()).unwrap();

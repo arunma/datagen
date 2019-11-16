@@ -19,6 +19,13 @@ pub struct Column {
     pub name: String,
     pub not_null: Option<bool>,
     pub dtype: DType,
+    pub one_of: Option<Vec<String>>,
+    pub min: Option<String>,
+    pub max: Option<String>,
+    pub mean: Option<f64>,
+    pub std: Option<f64>,
+    pub format: Option<String>
+
 }
 
 impl Schema {
@@ -58,17 +65,17 @@ dataset:
             dtype: boolean
         -
             name: gender
-            dtype: gender
+            dtype: string
 "#;
 
         let schema = Schema::from(&yaml);
-        pretty_assertions::assert_eq!(format ! ("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: String }, Column { name: "age", not_null: None, dtype: Int }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: Gender }] } }"#);
+        pretty_assertions::assert_eq!(format ! ("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "name", not_null: None, dtype: String, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "age", not_null: None, dtype: Int, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "adult", not_null: None, dtype: Boolean, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "gender", not_null: None, dtype: String, one_of: None, min: None, max: None, mean: None, std: None, format: None }] } }"#);
     }
 
     #[test]
     fn derive_struct_from_file() {
         let file_path = "./test_data/schema_simple.yaml".to_string();
         let schema = Schema::from_path(file_path);
-        pretty_assertions::assert_eq!(format!("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int }, Column { name: "name", not_null: None, dtype: Name }, Column { name: "age", not_null: None, dtype: Age }, Column { name: "adult", not_null: None, dtype: Boolean }, Column { name: "gender", not_null: None, dtype: Gender }] } }"#);
+        pretty_assertions::assert_eq!(format!("{:?}", schema.unwrap()), r#"Schema { name: "person_schema", dataset: DataSet { name: "person_table", columns: [Column { name: "id", not_null: Some(false), dtype: Int, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "name", not_null: None, dtype: Name, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "age", not_null: None, dtype: Age, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "adult", not_null: None, dtype: Boolean, one_of: None, min: None, max: None, mean: None, std: None, format: None }, Column { name: "gender", not_null: None, dtype: String, one_of: Some(["M", "F"]), min: None, max: None, mean: None, std: None, format: None }, Column { name: "date", not_null: None, dtype: Date, one_of: None, min: Some("01/01/2014"), max: Some("03/01/2014"), mean: None, std: None, format: Some("%d/%m/%Y") }] } }"#);
     }
 }

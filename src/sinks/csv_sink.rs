@@ -42,6 +42,8 @@ fn dvalue_to_csv(value: DValue) -> String {
         Double(val)     => val.to_string(),
         Bytes(val)  => format!("{:?}", val),
         Str(val)      => val.to_string(),
+        Date(val)     => val.to_string(),
+        DateTime(val) => val.to_string(),
         x            => format!("{:?}", x)
     }
 }

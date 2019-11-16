@@ -137,7 +137,23 @@ npm test
     
 * 0.1.3
     * Json support added
-    * Support for semantic types (name, gender, date, latitude, phone etc) 
+    * Support for semantic types (name, date, latitude, phone etc)
+* 0.1.4
+     * Supports one_of eg. 
+        ```
+                - {name: "day_of_week", dtype: "string", one_of:["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]} 
+        ```
+     * Support for min and max for numeric columns 
+        ```
+                - {name: "age", dtype: "int", min: 1 , max: 130}
+        ```
+     * Support for Date and Datetime (along with min and max)
+        ```
+               - {name: "event_time", dtype: "datetime", min: "2014-11-28 12:00:09" , max: "2014-11-30 12:00:09", format: "%Y-%m-%d %H:%M:%S"}
+               - {name: "dob", dtype: "date", min: "01/01/1920" , max: "03/01/2019", format: "%d/%m/%Y"}
+        ```
+     
+     * Support for semantic types (name, date, latitude, phone etc) 
 
 ## Meta
 

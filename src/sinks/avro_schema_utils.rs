@@ -49,12 +49,11 @@ fn dtype_to_avro_type(dtype: DType) -> String {
     use DType::*;
     match dtype {
         Age         =>      "int".to_string(),
-        Gender      =>      "string".to_string(),
-        Id          =>      "string".to_string(),
         Name        =>      "string".to_string(),
         City        =>      "string".to_string(),
         Phone       =>      "string".to_string(),
         Date        =>      "string".to_string(),
+        DateTime    =>      "string".to_string(),
         Latitude    =>      "string".to_string(),
         Longitude   =>      "string".to_string(),
         _           =>      format!("{:?}", dtype).to_lowercase(),
@@ -67,7 +66,7 @@ mod tests {
 
     #[test]
     fn test_inner_schema_to_avro_schema() {
-        let expected_avro_schema = r#"{"name":"person_schema","type":"record","fields":[{"name":"id","type":"int"},{"name":"name","type":"string"},{"name":"age","type":"int"},{"name":"adult","type":"boolean"},{"name":"gender","type":"string"}]}"#;
+        let expected_avro_schema = r#"{"name":"person_schema","type":"record","fields":[{"name":"id","type":"int"},{"name":"name","type":"string"},{"name":"age","type":"int"},{"name":"adult","type":"boolean"},{"name":"gender","type":"string"},{"name":"date","type":"string"}]}"#;
         let inner_schema = Schema::from_path("./test_data/schema_simple.yaml".to_string()).unwrap();
 
         let avro_schema = super::to_avro_schema(inner_schema).unwrap();

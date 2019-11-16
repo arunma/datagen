@@ -56,7 +56,6 @@ impl<W: Write> Sink for JsonSink<W> {
 
 //TODO - Do a Result wrapper
 fn dvalue_to_json(vec: Vec<(String, DValue)>) -> serde_json::Result<String> {
-    use std::str;
     use serde_json::*;
 
     let object: Map<String, Value> = vec.into_iter().map(|(key, value)| {
@@ -67,6 +66,8 @@ fn dvalue_to_json(vec: Vec<(String, DValue)>) -> serde_json::Result<String> {
             DValue::Float(val) => (key, json!(val)),
             DValue::Double(val) => (key, json!(val)),
             DValue::Bytes(_val) => unimplemented!(),
+            DValue::Date(val) => (key, Value::String(val)),
+            DValue::DateTime(val) => (key, Value::String(val)),
             DValue::Str(val) => (key, Value::String(val)),
             DValue::Null => (key, Value::Null),
             _ => unimplemented!()
@@ -78,8 +79,6 @@ fn dvalue_to_json(vec: Vec<(String, DValue)>) -> serde_json::Result<String> {
 
 #[cfg(test)]
 mod tests {
-    use std::str;
-
     use super::*;
 
     #[test]
